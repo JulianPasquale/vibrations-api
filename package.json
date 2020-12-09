@@ -11,6 +11,10 @@
     "lint": "eslint . --ext js,ts,json",
     "lint:fix": "yarn lint --fix"
   },
+  "engines": {
+    "node": "~14.15.0",
+    "yarn": "~1.22.0"
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
