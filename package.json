@@ -2,8 +2,10 @@
   "name": "vibrations-api",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node ./src/bin/www",
+    "prestart": "yarn run build",
+    "start": "node .",
     "build": "tsc",
     "watch": "nodemon --watch src -e ts,ejs,js --exec yarn run start",
     "lint": "eslint . --ext js,ts,json",
