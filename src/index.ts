@@ -11,7 +11,7 @@ import http from 'http';
  * Normalize a port into a number, string, or false.
  */
 
-const normalizePort = (val: any): number | false => {
+const normalizePort = (val: string): number | string | false => {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -25,7 +25,7 @@ const normalizePort = (val: any): number | false => {
   }
 
   return false;
-}
+};
 
 /**
  * Event listener for HTTP server "error" event.
@@ -64,14 +64,14 @@ const onListening = (): void => {
 
   if (!addr) {
     return;
-  };
+  }
 
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 
   console.log('Listening on ' + bind);
-}
+};
 
 /**
  * Get port from environment and store in Express.
