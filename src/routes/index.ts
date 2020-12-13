@@ -11,16 +11,42 @@ import db from '../db';
 
 const router = Router();
 
+
+interface VibrationPattern {
+  name: number,
+  value: number,
+};
+interface Vibration {
+  duration: number,
+  pattern: VibrationPattern[],
+};
+
+interface APIResponse {
+  id: string,
+  data: FirebaseFirestore.DocumentData
+};
+
 /**
  * Mock value
  */
-const vibration = {
+// const sample1: Vibration = {
+//   duration: 1,
+//   pattern: [
+//     { name: 1, value: 100 },
+//     { name: 2, value: 100 },
+//     { name: 3, value: 100 },
+//     { name: 4, value: 100 },
+//   ],
+// };
+
+const sample2: Vibration = {
   duration: 1,
   pattern: [
-    { name: 1, value: 100 },
-    { name: 2, value: 100 },
-    { name: 3, value: 100 },
-    { name: 4, value: 100 },
+    { name: 1, value: 50 },
+    { name: 2, value: 50 },
+    { name: 3, value: 200 },
+    { name: 4, value: 50 },
+    { name: 5, value: 50 },
   ],
 };
 
@@ -28,17 +54,38 @@ const vibration = {
 /* GET vibrations listing. */
 
 router.get('/', (_req: Request, res: Response, _next: NextFunction): void => {
-  res.send('respond with a resource');
+  const result: APIResponse[] = [];
+
+  db.collection('vibrations').get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data());
+        result.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
 });
 
 /* POST create vibration. */
 
 router.post('/', (_req: Request, res: Response, _next: NextFunction): void => {
-  console.log('hola');
-  const docRef = db.collection('vibrations').doc('sample1');
+  const docRef = db.collection('vibrations').doc('sample2');
 
-  docRef.set({ vibration })
-    .then(() => res.send(vibration))
+  docRef.set({ ...sample2 })
+    .then(() => (
+      res.status(201).send(
+        {
+          id: 'sample2',
+          data: sample2 as FirebaseFirestore.DocumentData
+        } as APIResponse
+      )
+    ))
     .catch((error) => console.error(error));
 });
 
