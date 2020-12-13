@@ -10,7 +10,7 @@ import logger from 'morgan';
  * Routers.
  */
 
-import indexRouter from './routes';
+import VibrationsRouter from './routes';
 
 /**
  * Create express app.
@@ -31,6 +31,6 @@ app.use(cookieParser());
  * Application routes.
  */
 
-app.use('/vibrations', indexRouter);
+app.use('/vibrations', VibrationsRouter);
 
 export default app;
