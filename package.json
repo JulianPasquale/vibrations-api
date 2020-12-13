@@ -9,7 +9,7 @@
     "start": "node .",
     "debug": "DEBUG=express:* node . --inspect",
     "build": "yarn clean && tsc",
-    "watch": "nodemon --watch src -e ts,ejs --exec yarn run start",
+    "watch": "nodemon --watch src -e ts,json --exec yarn run start",
     "lint": "eslint . --ext .ts,.json",
     "lint:fix": "yarn lint --fix"
   },
