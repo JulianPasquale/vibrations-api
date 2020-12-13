@@ -2,7 +2,7 @@
   "name": "vibrations-api",
   "version": "0.0.0",
   "private": true,
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
     "prestart": "yarn run build",
