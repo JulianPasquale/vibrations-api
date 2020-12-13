@@ -11,11 +11,11 @@ import db from '../db';
 
 const router = Router();
 
-
 interface VibrationPattern {
   name: number,
   value: number,
 };
+
 interface Vibration {
   duration: number,
   pattern: VibrationPattern[],
@@ -29,6 +29,7 @@ interface APIResponse {
 /**
  * Mock value
  */
+
 // const sample1: Vibration = {
 //   duration: 1,
 //   pattern: [
@@ -51,7 +52,9 @@ const sample2: Vibration = {
 };
 
 
-/* GET vibrations listing. */
+/**
+ *  GET vibrations listing.
+ */
 
 router.get('/', (_req: Request, res: Response, _next: NextFunction): void => {
   const result: APIResponse[] = [];
@@ -72,7 +75,9 @@ router.get('/', (_req: Request, res: Response, _next: NextFunction): void => {
     });
 });
 
-/* POST create vibration. */
+/** 
+ * POST create vibration.
+ */
 
 router.post('/', (_req: Request, res: Response, _next: NextFunction): void => {
   const docRef = db.collection('vibrations').doc('sample2');
@@ -87,6 +92,30 @@ router.post('/', (_req: Request, res: Response, _next: NextFunction): void => {
       )
     ))
     .catch((error) => console.error(error));
+});
+
+/**
+ * GET vibration details.
+ */
+
+router.get('/:vibrationId', (req: Request, res: Response, _next: NextFunction): void => {
+  const { vibrationId } = req.params;
+  db.collection('vibrations').doc(vibrationId).get()
+    .then((docRef) => {
+
+      if (!docRef.exists) {
+        console.log('No matching documents.');
+        res.sendStatus(404);
+      };
+
+      res.send({
+        id: vibrationId,
+        data: docRef.data()
+      });
+    })
+    .catch((err) => {
+      console.log('Error getting documents', err);
+    });
 });
 
 export default router;
