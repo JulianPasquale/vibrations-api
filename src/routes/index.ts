@@ -3,7 +3,12 @@
  */
 
 import { Router } from 'express';
-import { listHandler, detailsHandler, createHandler } from '../handlers/vibrations';
+import {
+  listHandler,
+  detailsHandler,
+  createHandler,
+  patternHandler
+} from '../handlers/vibrations';
 
 /**
  * Create router
@@ -28,5 +33,11 @@ router.post('/', createHandler);
  */
 
 router.get('/:vibrationId', detailsHandler);
+
+/**
+ * GET vibration details in pattern format.
+ */
+
+router.get('/:vibrationId/pattern', patternHandler);
 
 export default router;

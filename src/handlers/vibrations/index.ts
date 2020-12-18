@@ -1,6 +1,7 @@
 export { default as detailsHandler } from './details';
 export { default as listHandler } from './list';
 export { default as createHandler } from './create';
+export { default as patternHandler } from './pattern';
 
 export interface VibrationPattern {
   name: number,
