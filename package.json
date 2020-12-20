@@ -8,8 +8,8 @@
     "prestart": "yarn run build",
     "start": "node .",
     "debug": "DEBUG=express:* node . --inspect",
-    "build": "yarn clean && tsc",
-    "watch": "nodemon --watch src -e ts,json --exec yarn run start",
+    "build": "tsc",
+    "watch": "nodemon --watch src -e ts,json --exec 'yarn clean && yarn build && yarn run start'",
     "lint": "eslint . --ext .ts,.json",
     "lint:fix": "yarn lint --fix"
   },
