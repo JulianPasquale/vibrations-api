@@ -80,6 +80,7 @@ const onListening = (): void => {
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+app.set('hostname', '0.0.0.0');
 
 /**
  * Create HTTP server.
@@ -91,6 +92,6 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen({ port: port, hostname: '0.0.0.0' });
 server.on('error', onError);
 server.on('listening', onListening);
