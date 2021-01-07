@@ -10,7 +10,7 @@ import { APIResponse } from '..';
  * List all vibrations from Firestore.
  */
 
-export default (_req: Request, res: Response, _next: NextFunction): void => {
+export default (_req: Request, res: Response, next: NextFunction): void => {
   const result: APIResponse[] = [];
 
   db.collection('vibrations').get()
@@ -25,5 +25,6 @@ export default (_req: Request, res: Response, _next: NextFunction): void => {
     })
     .catch((err) => {
       console.log('Error getting documents', err);
+      next(err);
     });
 };

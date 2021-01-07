@@ -4,23 +4,38 @@
 
 import { Request, Response, NextFunction } from 'express';
 import db from '../../../db';
-import { APIResponse, sample2 } from '..';
+import { APIResponse, VibrationData } from '..';
+
+interface RequestBody {
+  id: string,
+  data: VibrationData,
+};
 
 /**
  * Store vibrations in Firestore.
  */
 
-export default (_req: Request, res: Response, _next: NextFunction): void => {
-  const docRef = db.collection('vibrations').doc('sample2');
+export default (req: Request, res: Response, next: NextFunction): void => {
+  const { id, data }: RequestBody = req.body;
 
-  docRef.set({ ...sample2 })
+  if (!id || !data) {
+    res.status(422).send('Invalid format.');
+    return;
+  };
+
+  const docRef = db.collection('vibrations').doc(id);
+
+  docRef.set({ ...data })
     .then(() => (
       res.status(201).send(
         {
-          id: 'sample2',
-          data: sample2 as FirebaseFirestore.DocumentData
+          id: id,
+          data: data
         } as APIResponse
       )
     ))
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      next(error);
+    });
 };

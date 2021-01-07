@@ -4,7 +4,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import db from '../../../db';
-import { Vibration } from '..';
+import { VibrationData } from '..';
 
 /**
  * Get vibrations details in pattern format from Firestore.
@@ -21,7 +21,7 @@ export default (req: Request, res: Response, _next: NextFunction): void => {
         return;
       };
 
-      const vibration = docRef.data() as Vibration;
+      const vibration = docRef.data() as VibrationData;
 
       res.send(vibration.pattern.map(pattern => pattern.value));
     })

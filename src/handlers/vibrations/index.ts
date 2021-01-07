@@ -8,37 +8,12 @@ export interface VibrationPattern {
   value: number,
 };
 
-export interface Vibration {
+export interface VibrationData {
   duration: number,
   pattern: VibrationPattern[],
 };
 
 export interface APIResponse {
   id: string,
-  data: FirebaseFirestore.DocumentData,
-};
-
-/**
- * Mock values
- */
-
-export const sample1: Vibration = {
-  duration: 1,
-  pattern: [
-    { name: 1, value: 100 },
-    { name: 2, value: 100 },
-    { name: 3, value: 100 },
-    { name: 4, value: 100 },
-  ],
-};
-
-export const sample2: Vibration = {
-  duration: 1,
-  pattern: [
-    { name: 1, value: 50 },
-    { name: 2, value: 50 },
-    { name: 3, value: 200 },
-    { name: 4, value: 50 },
-    { name: 5, value: 50 },
-  ],
+  data: FirebaseFirestore.DocumentData | VibrationData,
 };
