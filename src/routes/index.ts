@@ -7,7 +7,8 @@ import {
   listHandler,
   detailsHandler,
   createHandler,
-  patternHandler
+  patternHandler,
+  deleteHandler,
 } from '../handlers/vibrations';
 
 /**
@@ -39,5 +40,11 @@ router.get('/:vibrationId', detailsHandler);
  */
 
 router.get('/:vibrationId/pattern', patternHandler);
+
+/**
+ * DELETE vibration.
+ */
+
+router.delete('/:vibrationId', deleteHandler);
 
 export default router;
