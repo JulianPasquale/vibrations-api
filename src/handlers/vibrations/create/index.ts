@@ -7,7 +7,9 @@ import db from '../../../db';
 import { APIResponse, VibrationData } from '..';
 
 interface RequestBody {
-  id: string,
+  category: string,
+  id?: string,
+  name: string,
   data: VibrationData,
 };
 
@@ -16,21 +18,24 @@ interface RequestBody {
  */
 
 export default (req: Request, res: Response, next: NextFunction): void => {
-  const { id, data }: RequestBody = req.body;
+  const { id, name, data, category }: RequestBody = req.body;
 
-  if (!id || !data) {
+  if (!category) {
     res.status(422).send('Invalid format.');
     return;
   };
 
-  const docRef = db.collection('vibrations').doc(id);
+  const collection = db.collection('categories').doc(category).collection('vibrations');
+  const docRef = id ? collection.doc(id) : collection.doc();
 
-  docRef.set({ ...data })
+  docRef.set({ name, data })
     .then(() => (
       res.status(201).send(
         {
           id: id,
-          data: data
+          data: data,
+          name: name,
+          category: category,
         } as APIResponse
       )
     ))
