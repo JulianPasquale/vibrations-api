@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "start": "node .",
-    "debug": "DEBUG=express:* node . --inspect",
+    "debug": "DEBUG=express:* yarn clean && yarn build && yarn run start --inspect",
     "build": "tsc",
     "watch": "nodemon --watch src -e ts,json --exec 'yarn clean && yarn build && yarn run start'",
     "lint": "eslint . --ext .ts,.json",
