@@ -3,17 +3,19 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import db from '../../../db';
+import { vibration } from '../../../db';
 
 /**
  * Delete vibration from Firestore.
  */
 
-export default (req: Request, res: Response, _next: NextFunction): void => {
+export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { vibrationId } = req.params;
-  db.collection('vibrations').doc(vibrationId).delete()
-    .then(() => res.sendStatus(204))
-    .catch((err: Error) => {
-      console.log('Error getting document', err);
-    });
+  try {
+    await vibration(vibrationId).delete()
+    res.sendStatus(204)
+  } catch (error) {
+    console.log('Error getting document', error);
+    next(error);
+  };
 };

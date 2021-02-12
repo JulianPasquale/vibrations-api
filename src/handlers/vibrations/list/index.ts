@@ -3,28 +3,29 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import db from '../../../db';
+import { vibrations } from '../../../db';
 import { APIResponse } from '..';
 
 /**
  * List all vibrations from Firestore.
  */
 
-export default (_req: Request, res: Response, next: NextFunction): void => {
+export default async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
   const result: APIResponse[] = [];
 
-  db.collection('vibrations').get()
-    .then((snapshot) => {
-      snapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log('Error getting documents', err);
-      next(err);
+  try {
+    const snapshot = await vibrations.get();
+
+    snapshot.forEach((doc) => {
+      result.push({
+        id: doc.id,
+        ...doc.data(),
+      } as APIResponse);
     });
+    res.send(result);
+
+  } catch (error) {
+    console.log('Error getting documents', error);
+    next(error);
+  };
 };

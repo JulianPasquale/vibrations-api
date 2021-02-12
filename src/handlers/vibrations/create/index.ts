@@ -3,7 +3,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import db from '../../../db';
+import { vibration, vibrations } from '../../../db';
 import { APIResponse, VibrationData } from '..';
 
 interface RequestBody {
@@ -20,19 +20,18 @@ interface RequestBody {
 export default (req: Request, res: Response, next: NextFunction): void => {
   const { id, name, data, category }: RequestBody = req.body;
 
-  if (!category) {
+  if (!category || !name) {
     res.status(422).send('Invalid format.');
     return;
   };
 
-  const collection = db.collection('categories').doc(category).collection('vibrations');
-  const docRef = id ? collection.doc(id) : collection.doc();
+  const docRef = id ? vibration(id) : vibrations.doc();
 
-  docRef.set({ name, data })
+  docRef.set({ name, data, category })
     .then(() => (
       res.status(201).send(
         {
-          id: id,
+          id: docRef.id,
           data: data,
           name: name,
           category: category,

@@ -12,4 +12,9 @@ admin.initializeApp({
   credential: admin.credential.applicationDefault(),
 });
 
-export default admin.firestore();
+const db = admin.firestore();
+
+export default db;
+
+export const vibrations = db.collection('vibrations');
+export const vibration = (id: string) => vibrations.doc(id)

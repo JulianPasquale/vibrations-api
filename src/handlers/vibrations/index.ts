@@ -17,4 +17,6 @@ export interface VibrationData {
 export interface APIResponse {
   id: string,
   data: FirebaseFirestore.DocumentData | VibrationData,
+  name: string,
+  category: string,
 };
