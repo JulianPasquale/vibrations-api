@@ -25,11 +25,20 @@ export default (req: Request, res: Response, next: NextFunction): void => {
     return;
   };
 
-  const docRef = id ? vibration(id) : vibrations.doc();
+  let docRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
+  let status: number;
+
+  if (id) {
+    docRef = vibration(id);
+    status = 200;
+  } else {
+    status = 201;
+    docRef = vibrations.doc();
+  }
 
   docRef.set({ name, data, category })
     .then(() => (
-      res.status(201).send(
+      res.status(status).send(
         {
           id: docRef.id,
           data: data,
