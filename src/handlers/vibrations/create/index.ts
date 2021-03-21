@@ -20,7 +20,7 @@ interface RequestBody {
 export default (req: Request, res: Response, next: NextFunction): void => {
   const { id, name, data, category }: RequestBody = req.body;
 
-  if (!category || !name) {
+  if (!category || !name || !data) {
     res.status(422).send('Invalid format.');
     return;
   };

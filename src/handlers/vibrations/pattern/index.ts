@@ -3,8 +3,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { vibration } from '../../../db';
-import { APIResponse, VibrationPattern } from '..';
+import { VibrationPattern } from '..';
 
 const SAMPLING_COUNT = 10;
 
@@ -12,24 +11,9 @@ const SAMPLING_COUNT = 10;
  * Get vibrations details in pattern format from Firestore.
  */
 
-export default (req: Request, res: Response, _next: NextFunction): void => {
-  const { vibrationId } = req.params;
-  vibration(vibrationId).get()
-    .then((docRef) => {
-
-      if (!docRef.exists) {
-        console.log('No matching documents.');
-        res.sendStatus(404);
-        return;
-      };
-
-      const vibration = docRef.data() as APIResponse;
-
-      res.send(samples(vibration.data.pattern));
-    })
-    .catch((err: Error) => {
-      console.log('Error getting documents', err);
-    });
+export default (_req: Request, res: Response, _next: NextFunction): void => {
+  debugger;
+  res.send(samples(res.locals.vibration.data.pattern));
 };
 
 const samples = (pattern: VibrationPattern[]) => {
