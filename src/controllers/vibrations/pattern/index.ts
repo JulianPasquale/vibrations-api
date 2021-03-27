@@ -3,60 +3,56 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { VibrationPattern } from '../index.d';
+import patternSamples from './samples';
+import DutyCycle, { DUTY_CYCLES } from './duty_cycle';
 
-const SAMPLING_COUNT = 10;
+/**
+ * temporary fixed
+ */
+// const DURATION = 1000;
 
 /**
  * Get vibrations details in pattern format from Firestore.
  */
 
 export default (_req: Request, res: Response, _next: NextFunction): void => {
-  debugger;
-  res.send(samples(res.locals.vibration.data.pattern));
-};
+  const samples = patternSamples(res.locals.vibration.data.pattern);
 
-const samples = (pattern: VibrationPattern[]) => {
-  const numbers = pattern.map(elem => elem.value);
-  let elems: number[] = [];
+  let duty_cycle = DutyCycle(samples[0]);
+  let result: number[] = [];
 
-  for (let index = 0; index < numbers.length - 1; index++) {
-    const prev = numbers[index];
-    const current = numbers[index + 1];
+  for (let index = 1; index < samples.length; index++) {
+    result = result.concat(dutyCycleToPWM(duty_cycle.current));
 
-    console.log(prev);
-    console.log(current);
+    if ((samples[index] == samples[index - 1])) continue;
 
-    elems = elems.concat(samplesForIndex(prev, current));
+    if (samples[index] > samples[index - 1]) {
+      duty_cycle.current = duty_cycle.next();
+    } else {
+      duty_cycle.current = duty_cycle.previous();
+    }
   };
 
-  elems.push(numbers[numbers.length - 1]);
-
-  return elems;
+  res.send(result);
 };
 
-const samplesForIndex = (prev: number, current: number): number[] => {
-  if (prev == current) {
-    return new Array(SAMPLING_COUNT).fill(prev);
-  } else if (current > prev) {
-    return processSample(prev, current - prev, increase);
-  } else {
-    return processSample(prev, prev - current, decrease);
-  };
+const dutyCycleToPWM = (value: number) => {
+  if (value == DUTY_CYCLES.STOPPED)
+    return [0, 100];
+  if (value == DUTY_CYCLES.LOWER)
+    return [25, 75];
+  if (value == DUTY_CYCLES.MIDDLE_1)
+    return [50, 50];
+  if (value == DUTY_CYCLES.MIDDLE_2)
+    return [75, 25];
+
+  // (value == DUTY_CYCLES.HIGHER)
+  return [100, 0];
 };
 
-const processSample = (prev: number, difference: number, operation: (a: number, b: number) => number) => {
-  const result: number[] = [];
-  const samplingSize = difference / SAMPLING_COUNT;
-  let prevAux = prev;
+/**
+ * Create 4 posible values. Values are in range 0..200.
+ */
+// const quantify = (value: number) => Math.floor(value / 50);
 
-  for (let index = 0; index < SAMPLING_COUNT; index++) {
-    result.push(prevAux);
-    prevAux = operation(prevAux, samplingSize);
-  };
-
-  return result;
-}
-
-const increase = (a: number, b: number) => a + b;
-const decrease = (a: number, b: number) => a - b;
+// const toBinary = (value: number) => value.toString(2);
