@@ -11,10 +11,9 @@ import { VibrationData } from '../controllers/vibrations';
 */
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const { vibrationId } = req.params;
-
   try {
-    const docRef = await vibration(vibrationId).get()
+    const { vibrationId } = req.params;
+    const docRef = await vibration(vibrationId).get();
 
     if (!docRef.exists) {
       console.log('No matching documents.');

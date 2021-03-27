@@ -1,0 +1,30 @@
+{
+  "id": "Rxm6NbpolKAF4QY8lHwq",
+  "data": {
+    "duration": 1,
+    "pattern": [
+      {
+        "name": 1,
+        "value": 100
+      },
+      {
+        "name": 2,
+        "value": 0
+      },
+      {
+        "name": 3,
+        "value": 100
+      },
+      {
+        "value": 0,
+        "name": 4
+      },
+      {
+        "value": 100,
+        "name": 5
+      }
+    ]
+  },
+  "category": "pwm",
+  "name": "prueba2"
+}
