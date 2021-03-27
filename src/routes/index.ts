@@ -9,7 +9,7 @@ import {
   createHandler,
   patternHandler,
   deleteHandler,
-} from '../handlers/vibrations';
+} from '../controllers/vibrations';
 
 import retrieveVibration from '../middlewares/retrieveVibration';
 
