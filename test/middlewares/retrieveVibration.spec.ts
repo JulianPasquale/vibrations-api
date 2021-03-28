@@ -9,11 +9,8 @@ describe('Test retrieveVibration middleware', () => {
   let nextFunction: NextFunction = jest.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
-
     mockRequest = {};
     mockResponse = {
-      json: jest.fn(),
       sendStatus: jest.fn(),
       locals: {},
     };
