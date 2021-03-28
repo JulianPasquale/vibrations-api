@@ -24,7 +24,7 @@ describe('Test DetailsController', () => {
 
     DetailsController(mockRequest as Request, mockResponse as Response, nextFunction);
 
-    const { id, name, category, data } = vibration
+    const { id, name, category, data } = vibration;
     expect(mockResponse.send).toBeCalledTimes(1);
 
     expect(mockResponse.send).toHaveBeenCalledWith({ id, name, category, data });

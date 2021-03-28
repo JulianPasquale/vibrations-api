@@ -11,7 +11,7 @@
     "watch": "nodemon --watch src -e ts,json --exec 'yarn clean && yarn build && yarn run start'",
     "lint": "eslint . --ext .ts,.json",
     "lint:fix": "yarn lint --fix",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "engines": {
     "node": "~14.15.0",
