@@ -3,7 +3,9 @@ import DeleteController from '../../../src/controllers/vibrations/delete';
 
 import * as db from '../../../src/db';
 
-import mockedVibration from '../../mock_files/firestore_vibration.json';
+import mockedVibrations from '../../mock_files/firestore_vibrations.json';
+
+const mockedVibration = mockedVibrations[0];
 
 describe('Test DeleteController', () => {
   let mockRequest: Partial<Request>;

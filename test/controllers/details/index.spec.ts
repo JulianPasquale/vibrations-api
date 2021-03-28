@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import DetailsController from '../../../src/controllers/vibrations/details';
 
-import vibration from '../../mock_files/firestore_vibration.json';
+import vibrations from '../../mock_files/firestore_vibrations.json';
+
+const vibration = vibrations[0];
 
 describe('Test DetailsController', () => {
   let mockRequest: Partial<Request>;

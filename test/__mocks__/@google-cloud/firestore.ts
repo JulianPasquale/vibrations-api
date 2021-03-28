@@ -1,10 +1,7 @@
 import { mockGoogleCloudFirestore } from 'firestore-jest-mock';
-import vibration from '../../mock_files/firestore_vibration.json';
+
+import vibrations from '../../mock_files/firestore_vibrations.json';
 
 mockGoogleCloudFirestore({
-  database: {
-    vibrations: [
-      vibration,
-    ],
-  },
+  database: { vibrations, },
 });
