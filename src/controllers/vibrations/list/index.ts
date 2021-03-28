@@ -22,8 +22,8 @@ export default async (_req: Request, res: Response, next: NextFunction): Promise
         ...doc.data(),
       } as APIResponse);
     });
-    res.send(result);
 
+    res.send(result);
   } catch (error) {
     console.log('Error getting documents', error);
     next(error);

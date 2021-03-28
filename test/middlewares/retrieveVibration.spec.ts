@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import retrieveVibration from '../../src/middlewares/retrieveVibration';
-import vibration from '../mock_files/firestore_vibration.json';
+import vibrations from '../mock_files/firestore_vibrations.json';
 import { APIResponse } from '../../src/controllers/vibrations';
+
+const vibration = vibrations[0];
 
 describe('Test retrieveVibration middleware', () => {
   let mockRequest: Partial<Request>;
@@ -20,7 +22,7 @@ describe('Test retrieveVibration middleware', () => {
     it('set vibration data to response locals', async () => {
       mockRequest = {
         params: {
-          vibrationId: 'Rxm6NbpolKAF4QY8lHwq',
+          vibrationId: vibration.id,
         },
       };
 
