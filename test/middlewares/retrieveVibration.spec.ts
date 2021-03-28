@@ -63,9 +63,10 @@ describe('Test retrieveVibration middleware', () => {
 
   describe('when raises an exception', () => {
     it('calls next function with exception', async () => {
-      await retrieveVibration(mockRequest as Request, mockResponse as Response, nextFunction)
-
-      expect(nextFunction).toBeCalledTimes(1);
+      await retrieveVibration(mockRequest as Request, mockResponse as Response, (err: any) => {
+        expect(err).toBeDefined();
+        expect(err).toBeInstanceOf(Error);
+      });
     });
   });
 });
