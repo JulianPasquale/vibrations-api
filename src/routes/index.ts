@@ -47,6 +47,6 @@ router.get('/:vibrationId/pattern', retrieveVibration, patternHandler);
  * DELETE vibration.
  */
 
-router.delete('/:vibrationId', retrieveVibration, deleteHandler);
+router.delete('/:vibrationId', deleteHandler);
 
 export default router;

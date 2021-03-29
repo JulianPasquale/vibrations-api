@@ -3,6 +3,9 @@ import retrieveVibration from '../../src/middlewares/retrieveVibration';
 import vibrations from '../mock_files/firestore_vibrations.json';
 import { APIResponse } from '../../src/controllers/vibrations';
 
+// @ts-ignore
+import { mockDoc } from 'firestore-jest-mock/mocks/firestore';
+
 const vibration = vibrations[0];
 
 describe('Test retrieveVibration middleware', () => {
@@ -34,6 +37,8 @@ describe('Test retrieveVibration middleware', () => {
         });
       }) as APIResponse;
 
+      expect(mockDoc).toBeCalledTimes(1);
+      expect(mockDoc).toBeCalledWith(vibration.id);
 
       expect(result).toHaveProperty('name');
       expect(result.name).toEqual(vibration.name);
@@ -55,6 +60,9 @@ describe('Test retrieveVibration middleware', () => {
       };
 
       await retrieveVibration(mockRequest as Request, mockResponse as Response, nextFunction)
+
+      expect(mockDoc).toBeCalledTimes(1);
+      expect(mockDoc).toBeCalledWith('FAKE_ID');
 
       expect(mockResponse.sendStatus).toBeCalledWith(404);
     });

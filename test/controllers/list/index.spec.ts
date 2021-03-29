@@ -17,7 +17,6 @@ describe('Test IndexController', () => {
   });
 
   it('should return vibrations from Firestore', async () => {
-    mockResponse.send = jest.fn();
     const spy = jest.spyOn(db.vibrations, 'get');
 
     await IndexController(mockRequest as Request, mockResponse as Response, nextFunction);
