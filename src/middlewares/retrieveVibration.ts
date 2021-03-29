@@ -18,6 +18,8 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
     if (!docRef.exists) {
       console.log('No matching documents.');
       res.sendStatus(404);
+
+      return;
     };
 
     res.locals.vibration = docRef.data() as VibrationData;
