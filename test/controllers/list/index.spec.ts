@@ -4,6 +4,9 @@ import { APIResponse } from '../../../src/controllers/vibrations';
 
 import * as db from '../../../src/db';
 
+// @ts-ignore
+import { mockGet } from 'firestore-jest-mock/mocks/firestore';
+
 describe('Test IndexController', () => {
   let mockRequest: Partial<Request>;
   let mockResponse: Partial<Response>;
@@ -17,11 +20,9 @@ describe('Test IndexController', () => {
   });
 
   it('should return vibrations from Firestore', async () => {
-    const spy = jest.spyOn(db.vibrations, 'get');
-
     await IndexController(mockRequest as Request, mockResponse as Response, nextFunction);
 
-    expect(spy).toBeCalledTimes(1);
+    expect(mockGet).toBeCalledTimes(1);
     expect(mockResponse.send).toBeCalledTimes(1);
 
     /**
