@@ -4,7 +4,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { vibrations } from '../../../db';
-import { APIResponse } from '..';
+import { APIResponse } from '../index.d';
 
 /**
  * List all vibrations from Firestore.

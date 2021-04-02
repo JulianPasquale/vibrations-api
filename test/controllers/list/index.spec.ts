@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import IndexController from '../../../src/controllers/vibrations/list';
-import { APIResponse } from '../../../src/controllers/vibrations';
+import { APIResponse } from '../../../src/controllers/vibrations/index.d';
 
 import * as db from '../../../src/db';
 

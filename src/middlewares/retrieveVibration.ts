@@ -4,7 +4,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { vibration } from '../db';
-import { VibrationData } from '../controllers/vibrations';
+import { VibrationData } from '../controllers/vibrations/index.d';
 
 /**
 * Get vibrations from DB.

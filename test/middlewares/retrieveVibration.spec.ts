@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import retrieveVibration from '../../src/middlewares/retrieveVibration';
 import vibrations from '../mock_files/firestore_vibrations.json';
-import { APIResponse } from '../../src/controllers/vibrations';
+import { APIResponse } from '../../src/controllers/vibrations/index.d';
 
 // @ts-ignore
 import { mockDoc } from 'firestore-jest-mock/mocks/firestore';

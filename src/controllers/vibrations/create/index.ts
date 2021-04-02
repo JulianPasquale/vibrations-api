@@ -4,7 +4,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { vibration, vibrations } from '../../../db';
-import { APIResponse, VibrationData } from '..';
+import { APIResponse, VibrationData } from '../index.d';
 
 interface RequestBody {
   category: string,

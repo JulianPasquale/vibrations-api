@@ -1,22 +1,5 @@
-export { default as detailsHandler } from './details';
-export { default as listHandler } from './list';
-export { default as createHandler } from './create';
-export { default as patternHandler } from './pattern';
-export { default as deleteHandler } from './delete';
-
-export interface VibrationPattern {
-  name: number,
-  value: number,
-};
-
-export interface VibrationData {
-  duration: number,
-  pattern: VibrationPattern[],
-};
-
-export interface APIResponse {
-  id: string,
-  data: FirebaseFirestore.DocumentData | VibrationData,
-  name: string,
-  category: string,
-};
+export { default as detailsController } from './details';
+export { default as listController } from './list';
+export { default as createController } from './create';
+export { default as patternController } from './pattern';
+export { default as deleteController } from './delete';

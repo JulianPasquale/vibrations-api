@@ -29,9 +29,10 @@ export default {
   coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  coveragePathIgnorePatterns: [
+    "src/controllers/vibrations/index.ts",
+    "src/controllers/vibrations/index.d.ts",
+  ],
 
   // Indicates which provider should be used to instrument code for coverage
   // coverageProvider: "babel",
