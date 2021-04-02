@@ -17,38 +17,38 @@ interface RequestBody {
  * Store vibrations in Firestore.
  */
 
-export default (req: Request, res: Response, next: NextFunction): void => {
-  const { id, name, data, category }: RequestBody = req.body;
+export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    if (!req.body.category || !req.body.name || !req.body.data) {
+      res.status(422).send('Invalid format.');
+      return;
+    };
 
-  if (!category || !name || !data) {
-    res.status(422).send('Invalid format.');
-    return;
+    const { name, data, category }: RequestBody = req.body;
+
+    let docRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
+    let status: number;
+
+    if (req.body.id) {
+      docRef = vibration(req.body.id);
+      status = 200;
+    } else {
+      status = 201;
+      docRef = vibrations.doc();
+    };
+
+    await docRef.set({ name, data, category });
+
+    res.status(status).send(
+      {
+        id: docRef.id,
+        data: data,
+        name: name,
+        category: category,
+      } as APIResponse
+    );
+  } catch (error) {
+    console.log('Error creating vibration', error);
+    next(error);
   };
-
-  let docRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
-  let status: number;
-
-  if (id) {
-    docRef = vibration(id);
-    status = 200;
-  } else {
-    status = 201;
-    docRef = vibrations.doc();
-  }
-
-  docRef.set({ name, data, category })
-    .then(() => (
-      res.status(status).send(
-        {
-          id: docRef.id,
-          data: data,
-          name: name,
-          category: category,
-        } as APIResponse
-      )
-    ))
-    .catch((error) => {
-      console.error(error);
-      next(error);
-    });
 };
