@@ -32,6 +32,7 @@ export default {
   coveragePathIgnorePatterns: [
     "src/controllers/vibrations/index.ts",
     "src/controllers/vibrations/index.d.ts",
+    "src/index.ts",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
