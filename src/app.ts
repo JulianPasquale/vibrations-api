@@ -11,7 +11,7 @@ import cors from 'cors';
  * Routers.
  */
 
-import VibrationsRouter from './routes';
+import VibrationsRouter from './routes/vibrations';
 
 /**
  * Create express app.

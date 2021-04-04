@@ -4,21 +4,22 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { vibration } from '../db';
-import { VibrationData } from '../handlers/vibrations';
+import { VibrationData } from '../controllers/vibrations/index.d';
 
 /**
 * Get vibrations from DB.
 */
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const { vibrationId } = req.params;
-
   try {
-    const docRef = await vibration(vibrationId).get()
+    const { vibrationId } = req.params;
+    const docRef = await vibration(vibrationId).get();
 
     if (!docRef.exists) {
       console.log('No matching documents.');
       res.sendStatus(404);
+
+      return;
     };
 
     res.locals.vibration = docRef.data() as VibrationData;

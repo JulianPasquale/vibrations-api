@@ -4,12 +4,12 @@
 
 import { Router } from 'express';
 import {
-  listHandler,
-  detailsHandler,
-  createHandler,
-  patternHandler,
-  deleteHandler,
-} from '../handlers/vibrations';
+  listController,
+  detailsController,
+  createController,
+  patternController,
+  deleteController,
+} from '../controllers/vibrations';
 
 import retrieveVibration from '../middlewares/retrieveVibration';
 
@@ -23,30 +23,30 @@ const router = Router();
  *  GET vibrations listing.
  */
 
-router.get('/', listHandler);
+router.get('/', listController);
 
 /** 
  * POST create vibration.
  */
 
-router.post('/', createHandler);
+router.post('/', createController);
 
 /**
  * GET vibration details.
  */
 
-router.get('/:vibrationId', retrieveVibration, detailsHandler);
+router.get('/:vibrationId', retrieveVibration, detailsController);
 
 /**
  * GET vibration details in pattern format.
  */
 
-router.get('/:vibrationId/pattern', retrieveVibration, patternHandler);
+router.get('/:vibrationId/pattern', retrieveVibration, patternController);
 
 /**
  * DELETE vibration.
  */
 
-router.delete('/:vibrationId', deleteHandler);
+router.delete('/:vibrationId', deleteController);
 
 export default router;

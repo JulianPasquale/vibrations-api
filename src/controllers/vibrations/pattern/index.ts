@@ -3,7 +3,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { VibrationPattern } from '..';
+import { VibrationPattern } from '../index.d';
 
 const SAMPLING_COUNT = 10;
 

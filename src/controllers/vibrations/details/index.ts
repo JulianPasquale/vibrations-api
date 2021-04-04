@@ -3,7 +3,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { APIResponse } from '..';
+import { APIResponse } from '../index.d';
 
 /**
  * Get vibrations details from Firestore.
