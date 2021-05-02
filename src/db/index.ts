@@ -17,4 +17,4 @@ const db = admin.firestore();
 export default db;
 
 export const vibrations = db.collection('vibrations');
-export const vibration = (id: string) => vibrations.doc(id)
+export const vibration = (id: string) => vibrations.doc(id);

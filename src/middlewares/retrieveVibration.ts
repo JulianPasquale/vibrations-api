@@ -3,29 +3,30 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { vibration } from '../../../db';
-import { APIResponse } from '..';
+import { vibration } from '../db';
+import { VibrationData } from '../controllers/vibrations/index.d';
 
 /**
- * Get vibrations details from Firestore.
- */
+* Get vibrations from DB.
+*/
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const { vibrationId } = req.params;
-
   try {
-    const docRef = await vibration(vibrationId).get()
+    const { vibrationId } = req.params;
+    const docRef = await vibration(vibrationId).get();
 
     if (!docRef.exists) {
       console.log('No matching documents.');
       res.sendStatus(404);
+
+      return;
     };
 
-    res.send({
-      id: vibrationId,
-      ...docRef.data(),
-    } as APIResponse);
-  } catch (error) {
+    res.locals.vibration = docRef.data() as VibrationData;
+
+    next();
+  }
+  catch (error) {
     console.log('Error getting documents', error);
     next(error);
   };

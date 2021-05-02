@@ -10,10 +10,12 @@ import { vibration } from '../../../db';
  */
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const { vibrationId } = req.params;
   try {
-    await vibration(vibrationId).delete()
-    res.sendStatus(204)
+    const { vibrationId } = req.params;
+
+    await vibration(vibrationId).delete();
+
+    res.sendStatus(204);
   } catch (error) {
     console.log('Error getting document', error);
     next(error);

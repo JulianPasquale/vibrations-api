@@ -1,0 +1,62 @@
+[
+  {
+    "id": "EcqC1qGn6wBuiLnCw4Tw",
+    "category": "Category 1",
+    "name": "Example",
+    "data": {
+      "duration": 3,
+      "pattern": [
+        {
+          "value": 150,
+          "name": 1
+        },
+        {
+          "value": 80,
+          "name": 2
+        },
+        {
+          "value": 150,
+          "name": 3
+        },
+        {
+          "name": 4,
+          "value": 80
+        },
+        {
+          "name": 5,
+          "value": 150
+        }
+      ]
+    }
+  },
+  {
+    "id": "Rxm6NbpolKAF4QY8lHwq",
+    "data": {
+      "duration": 1,
+      "pattern": [
+        {
+          "name": 1,
+          "value": 100
+        },
+        {
+          "name": 2,
+          "value": 0
+        },
+        {
+          "name": 3,
+          "value": 100
+        },
+        {
+          "value": 0,
+          "name": 4
+        },
+        {
+          "value": 100,
+          "name": 5
+        }
+      ]
+    },
+    "category": "pwm",
+    "name": "prueba2"
+  }
+]
