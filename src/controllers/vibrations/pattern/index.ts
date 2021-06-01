@@ -45,8 +45,3 @@ const dutyCycleToPWM = (value: number, period: number) => {
   // (value == DUTY_CYCLES.HIGHER)
   return [period, 0];
 };
-
-/**
- * Create 4 posible values. Values are in range 0..200.
- */
-// const quantify = (value: number) => Math.floor(value / 50);
